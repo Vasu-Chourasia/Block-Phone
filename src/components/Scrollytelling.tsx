@@ -204,6 +204,17 @@ export default function Scrollytelling() {
       }
 
       ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+
+      // Mask/hide the bottom-right watermark star dynamically (Star is at X:1160-1207, Y:600-647)
+      const scaleX = drawWidth / 1280;
+      const scaleY = drawHeight / 720;
+      const patchX = drawX + 1150 * scaleX;
+      const patchY = drawY + 590 * scaleY;
+      const patchW = 67 * scaleX;
+      const patchH = 67 * scaleY;
+
+      ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--bg-sampled").trim() || "#050505";
+      ctx.fillRect(patchX, patchY, patchW, patchH);
     };
 
     const updateAndDraw = () => {
